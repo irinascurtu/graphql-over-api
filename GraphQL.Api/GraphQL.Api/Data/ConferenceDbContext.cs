@@ -5,13 +5,12 @@ namespace GraphQL.Api.Data.Infrastructure
 {
     public class ConferenceDbContext : DbContext
     {
-
-
         public ConferenceDbContext(DbContextOptions<ConferenceDbContext> options) : base(options)
         {
 
         }
 
         public DbSet<Speaker> Speakers { get; set; }
+        public virtual DbSet<Talk> Talks { get; set; }
     }
 }
