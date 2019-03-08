@@ -12,61 +12,69 @@ namespace GraphQL.Api.Data
             {
                 dbContext.Speakers.Add(new Speaker()
                 {
-                    CompanyName = "Edava",
-                    CompanyWebsite = "http://endava.com",
+                    CompanyName = "Microsoft",
+                    CompanyWebsite = "http://microsoft.com",
                     Email = "irina@endava.com",
-                    FirstName = "Irina",
-                    LastName = "Scurtu",
-                    Position = "Design Lead",
-                    Description = "lalalaalala",
-                    PageSlug = "irina-scurtu"
+                    FirstName = "Scott",
+                    LastName = "Hanselman",
+                    Position = "Program Manager",
+                    Description = "Speaker, Teacher, Coder, Blogger",
+                    PageSlug = "scott-hanselman",
+                    GitHub = "http:///github.com",
+                    LinkedIn = "http:///linkedin.com"
 
                 });
 
                 dbContext.Speakers.Add(new Speaker()
                 {
-                    CompanyName = "Edava",
+                    CompanyName = "Endava",
                     CompanyWebsite = "http://endava.com",
-                    Email = "irina@endava.com",
+                    Email = "irinas@endava.com",
                     FirstName = "Irina",
                     LastName = "Scurtu",
                     Position = "Design Lead",
                     Description = "lalalaalala",
-                    PageSlug = "irina-scurtu"
-
+                    PageSlug = "irina-scurtu",
+                    GitHub = "http:///github.com",
+                    LinkedIn = "http:///linkedin.com"
                 });
 
                 dbContext.Speakers.Add(new Speaker()
                 {
-                    CompanyName = "Edava",
-                    CompanyWebsite = "http://xyz.com",
+                    CompanyName = "Google",
+                    CompanyWebsite = "http://google.com",
                     Email = "irina@xyz.com",
                     FirstName = "Irina",
                     LastName = "xyz",
                     Position = "Devops",
                     Description = "lalalaalala",
-                    PageSlug = "irina-xyz"
+                    PageSlug = "irina-xyz",
+                    GitHub = "http:///github.com",
+                    LinkedIn = "http:///linkedin.com"
 
                 });
 
             }
-
+            dbContext.SaveChanges();
             if (!dbContext.Talks.Any())
             {
                 dbContext.Talks.Add(new Talk()
                 {
-                    Description = "lalaa",
+                    Description = "There is an entire universe outside REST apis. You just need to fly there",
                     Title = "GraphQL",
                     SpeakerId = dbContext.Speakers.First().Id
                 });
+
                 dbContext.Talks.Add(new Talk()
                 {
-                    Description = "lalaa",
+                    Description = "this could be a super nice talk, but the topic is just boring. Vital but boooooring",
                     Title = "Yet another graphql talk 2",
                     SpeakerId = dbContext.Speakers.First().Id
                 });
 
             }
+
+            dbContext.SaveChanges();
         }
     }
 }
