@@ -25,5 +25,10 @@ namespace GraphQL.Api.Data.Repositories
         {
             return dbContext.Talks.Where(x => x.SpeakerId == speakerId).ToListAsync();
         }
+
+        public Task<Talk> GetById(int id)
+        {
+            return dbContext.Talks.FindAsync(id);
+        }
     }
 }

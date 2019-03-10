@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GraphQL.Api.Data.Entities;
+﻿using GraphQL.Api.Data.Entities;
 using GraphQL.Api.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GraphQL.Api.Data.Repositories
 {
@@ -22,5 +20,9 @@ namespace GraphQL.Api.Data.Repositories
             return dbContext.Speakers.ToListAsync();
         }
 
+        public Task<Speaker> GetById(int id)
+        {
+            return dbContext.Speakers.FindAsync(id);
+        }
     }
 }

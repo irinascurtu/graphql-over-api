@@ -1,4 +1,5 @@
 ﻿using GraphQL.Api.Data.Repositories;
+using GraphQL.Api.GraphQL.Types;
 using GraphQL.Types;
 
 namespace GraphQL.Api.GraphQL
@@ -21,6 +22,48 @@ namespace GraphQL.Api.GraphQL
                 "talks",
                 Description = "will return all the talks from current and past editions",
                 resolve: context => talksRepo.GetAll()
+            );
+
+            Field<ListGraphType<Types.Talk>>(
+                "speaker-talks",
+                Description = "will return all the talks for a speaker",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+                {
+                    Name = "id"
+                }),
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+                    return talksRepo.GetAllForSpeaker(id);
+                }
+            );
+
+            Field<Speaker>(
+                "speaker",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+                {
+                    Name = "id",
+                    DefaultValue = 2,
+                    Description = "test"
+                }),
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+                    return speakersRepo.GetById(id);
+                }
+            );
+
+            Field<Talk>(
+                "talk",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+                {
+                    Name = "id"
+                }),
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+                    return talksRepo.GetById(id);
+                }
             );
 
         }
