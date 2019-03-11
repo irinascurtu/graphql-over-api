@@ -19,7 +19,7 @@ namespace GraphQL.Api.GraphQL
             );
 
 
-            Field<ListGraphType<TalkType>>(
+            Field<ListGraphType<Talk>>(
                 "talks",
                 Description = "will return all the talks from current and past editions",
                 resolve: context => talksRepo.GetAll()
@@ -57,18 +57,18 @@ namespace GraphQL.Api.GraphQL
             //    }
             //);
 
-            //Field<Talk>(
-            //    "talk",
-            //    arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
-            //    {
-            //        Name = "id"
-            //    }),
-            //    resolve: context =>
-            //    {
-            //        var id = context.GetArgument<int>("id");
-            //        return talksRepo.GetById(id);
-            //    }
-            //);
+            Field<Talk>(
+                "talk",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+                {
+                    Name = "id"
+                }),
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+                    return talksRepo.GetById(id);
+                }
+            );
 
         }
     }
