@@ -18,8 +18,9 @@ namespace GraphQL.Api.Data.Repositories
 
         public Task<List<Talk>> GetAll()
         {
-            return dbContext.Talks.ToListAsync();
+            return dbContext.Talks.Include(s => s.Speaker).ToListAsync(); ;
         }
+
 
         public Task<List<Talk>> GetAllForSpeaker(int speakerId)
         {
@@ -30,5 +31,7 @@ namespace GraphQL.Api.Data.Repositories
         {
             return dbContext.Talks.FindAsync(id);
         }
+
     }
+
 }

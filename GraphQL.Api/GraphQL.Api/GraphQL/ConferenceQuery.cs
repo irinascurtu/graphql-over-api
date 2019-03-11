@@ -18,53 +18,57 @@ namespace GraphQL.Api.GraphQL
                 resolve: context => speakersRepo.GetAll()
             );
 
-            Field<ListGraphType<Types.Talk>>(
+
+            Field<ListGraphType<TalkType>>(
                 "talks",
                 Description = "will return all the talks from current and past editions",
                 resolve: context => talksRepo.GetAll()
             );
 
-            Field<ListGraphType<Types.Talk>>(
-                "speaker-talks",
-                Description = "will return all the talks for a speaker",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
-                {
-                    Name = "id"
-                }),
-                resolve: context =>
-                {
-                    var id = context.GetArgument<int>("id");
-                    return talksRepo.GetAllForSpeaker(id);
-                }
-            );
 
-            Field<Speaker>(
-                "speaker",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
-                {
-                    Name = "id",
-                    DefaultValue = 2,
-                    Description = "test"
-                }),
-                resolve: context =>
-                {
-                    var id = context.GetArgument<int>("id");
-                    return speakersRepo.GetById(id);
-                }
-            );
 
-            Field<Talk>(
-                "talk",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
-                {
-                    Name = "id"
-                }),
-                resolve: context =>
-                {
-                    var id = context.GetArgument<int>("id");
-                    return talksRepo.GetById(id);
-                }
-            );
+            //Field<ListGraphType<Types.Talk>>(
+            //    "speakertalks",
+            //    Description = "will return all the talks for a speaker",
+            //    arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+            //    {
+            //        Name = "id"
+            //    }),
+            //    resolve: context =>
+            //    {
+            //        var id = context.GetArgument<int>("id");
+            //        return talksRepo.GetAllForSpeaker(id);
+            //    }
+            //);
+
+
+            //Field<Speaker>(
+            //    "speaker",
+            //    arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+            //    {
+            //        Name = "id",
+            //        DefaultValue = 2,
+            //        Description = "test"
+            //    }),
+            //    resolve: context =>
+            //    {
+            //        var id = context.GetArgument<int>("id");
+            //        return speakersRepo.GetById(id);
+            //    }
+            //);
+
+            //Field<Talk>(
+            //    "talk",
+            //    arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+            //    {
+            //        Name = "id"
+            //    }),
+            //    resolve: context =>
+            //    {
+            //        var id = context.GetArgument<int>("id");
+            //        return talksRepo.GetById(id);
+            //    }
+            //);
 
         }
     }

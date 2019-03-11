@@ -38,6 +38,6 @@ namespace GraphQL.Api.Data.Entities
         public string Description { get; set; }
         public string PageSlug { get; set; }
 
-        public List<Talk> Talks { get; set; }
+        public virtual List<Talk> Talks { get; set; }
     }
 }
