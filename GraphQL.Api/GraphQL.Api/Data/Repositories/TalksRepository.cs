@@ -27,10 +27,9 @@ namespace GraphQL.Api.Data.Repositories
             return dbContext.Talks.Where(x => x.SpeakerId == speakerId).ToListAsync();
         }
 
-        public Talk GetById(int id)
-        {
-            var ss = dbContext.Talks.Include(s => s.Speaker).FirstOrDefault(x => x.Id == id);
-            return ss;
+        public Task<Talk> GetById(int id)
+        {          
+            return dbContext.Talks.Include(s => s.Speaker).FirstOrDefaultAsync(x => x.Id == id);
         }
 
     }
