@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28705.295
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.Api", "GraphQL.Api\GraphQL.Api.csproj", "{E4172144-A26D-4D6A-A023-71E827643AA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQL.Api", "GraphQL.Api\GraphQL.Api.csproj", "{E4172144-A26D-4D6A-A023-71E827643AA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REST.Api", "REST.Api\REST.Api.csproj", "{8FFC0444-50B7-4C7D-AD08-58C3E2A57D0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conference.Data", "Conference.Data\Conference.Data.csproj", "{D6A6D9F7-D895-42BD-B883-F7C0AB5585DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conference.Service", "Conference.Service\Conference.Service.csproj", "{280399EE-BC37-4D80-9898-9E63D7287A9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,14 @@ Global
 		{E4172144-A26D-4D6A-A023-71E827643AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4172144-A26D-4D6A-A023-71E827643AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4172144-A26D-4D6A-A023-71E827643AA9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8FFC0444-50B7-4C7D-AD08-58C3E2A57D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FFC0444-50B7-4C7D-AD08-58C3E2A57D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FFC0444-50B7-4C7D-AD08-58C3E2A57D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FFC0444-50B7-4C7D-AD08-58C3E2A57D0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6A6D9F7-D895-42BD-B883-F7C0AB5585DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6A6D9F7-D895-42BD-B883-F7C0AB5585DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6A6D9F7-D895-42BD-B883-F7C0AB5585DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6A6D9F7-D895-42BD-B883-F7C0AB5585DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{280399EE-BC37-4D80-9898-9E63D7287A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280399EE-BC37-4D80-9898-9E63D7287A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280399EE-BC37-4D80-9898-9E63D7287A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280399EE-BC37-4D80-9898-9E63D7287A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

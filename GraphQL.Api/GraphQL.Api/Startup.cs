@@ -16,7 +16,7 @@ using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.DataLoader;
-
+using Conference.Data.Data.Repositories;
 
 namespace GraphQL.Api
 {

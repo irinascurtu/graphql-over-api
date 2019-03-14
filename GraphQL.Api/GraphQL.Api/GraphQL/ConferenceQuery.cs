@@ -1,4 +1,5 @@
-﻿using GraphQL.Api.Data.Repositories;
+﻿using Conference.Data.Data.Repositories;
+using GraphQL.Api.Data.Repositories;
 using GraphQL.Api.GraphQL.Types;
 using GraphQL.Types;
 

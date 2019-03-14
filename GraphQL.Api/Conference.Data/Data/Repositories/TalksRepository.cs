@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraphQL.Api.Data.Repositories
+namespace Conference.Data.Data.Repositories
 {
     public class TalksRepository
     {
@@ -28,7 +28,7 @@ namespace GraphQL.Api.Data.Repositories
         }
 
         public Task<Talk> GetById(int id)
-        {          
+        {
             return dbContext.Talks.Include(s => s.Speaker).FirstOrDefaultAsync(x => x.Id == id);
         }
 
