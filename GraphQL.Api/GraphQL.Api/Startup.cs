@@ -17,6 +17,7 @@ using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.DataLoader;
 using Conference.Data.Data.Repositories;
+using Conference.Service;
 
 namespace GraphQL.Api
 {
@@ -39,12 +40,13 @@ namespace GraphQL.Api
 
             services.AddDbContext<ConferenceDbContext>(options =>
             {
-            //    options.UseLazyLoadingProxies();
+                //    options.UseLazyLoadingProxies();
                 options.UseSqlServer(Configuration["ConnectionStrings:ConferenceDb"]);
             });
 
             services.AddScoped<SpeakersRepository>();
             services.AddScoped<TalksRepository>();
+            services.AddScoped<FeedbackService>();
 
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
@@ -52,10 +54,14 @@ namespace GraphQL.Api
 
             //services.AddGraphQL(o => { o.ExposeExceptions = false; })
             //    .AddGraphTypes(ServiceLifetime.Scoped).AddDataLoader(); ;
+
             services.AddSingleton<IDataLoaderContextAccessor, DataLoaderContextAccessor>();
             services.AddSingleton<DataLoaderDocumentListener>();
 
-
+            services.AddHttpClient("Feedbacks", client =>
+            {
+                client.BaseAddress = new Uri(Configuration["Feedbacks"]);
+            });
 
             services.AddGraphQL(o => { o.ExposeExceptions = env.IsDevelopment(); })
               .AddGraphTypes(ServiceLifetime.Scoped)
@@ -72,6 +78,7 @@ namespace GraphQL.Api
             }
             app.UseGraphQL<ConferenceSchema>();
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+
             dbContex.Seed();
             // app.UseMvc();
         }

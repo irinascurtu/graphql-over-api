@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Feedbacks.Api.Data;
+using Feedbacks.Api.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,13 +35,15 @@ namespace Feedbacks.Api
                 options.UseSqlServer(Configuration["ConnectionStrings:Feedbacks"]);
             });
 
+            services.AddScoped<FeedbackRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, FeedbacksDbContext db)
         {
             if (env.IsDevelopment())
             {
+                db.EnsureSeedData();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -49,6 +52,7 @@ namespace Feedbacks.Api
                 app.UseHsts();
             }
 
+          
             app.UseHttpsRedirection();
             app.UseMvc();
         }

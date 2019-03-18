@@ -32,6 +32,14 @@ namespace Conference.Data.Data.Repositories
             return dbContext.Talks.Include(s => s.Speaker).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+
+        public async Task<Talk> Add(Talk talk)
+        {
+            await dbContext.Talks.AddAsync(talk);
+            await dbContext.SaveChangesAsync();
+            return talk;
+        }
+
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using GraphQL.Types;
+﻿using GraphQL.Api.GraphQL.Mutations;
+using GraphQL.Types;
 
 namespace GraphQL.Api.GraphQL
 {
@@ -7,6 +8,7 @@ namespace GraphQL.Api.GraphQL
         public ConferenceSchema(IDependencyResolver resolver): base(resolver)
         {
             Query = resolver.Resolve<ConferenceQuery>();
+          //  Mutation = resolver.Resolve<ConferenceMutation>();
         }
     }
 }

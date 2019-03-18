@@ -1,4 +1,5 @@
 ﻿using Conference.Data.Data.Repositories;
+using Conference.Service;
 using GraphQL.Api.Data.Repositories;
 using GraphQL.Api.GraphQL.Types;
 using GraphQL.Types;
@@ -11,7 +12,7 @@ namespace GraphQL.Api.GraphQL
     public class ConferenceQuery : ObjectGraphType
     {
         //inject all the repos you need
-        public ConferenceQuery(SpeakersRepository speakersRepo, TalksRepository talksRepo)
+        public ConferenceQuery(SpeakersRepository speakersRepo, TalksRepository talksRepo, FeedbackService feedbackService)
         {
             Field<ListGraphType<Types.Speaker>>(
                 "speakers",
@@ -26,6 +27,11 @@ namespace GraphQL.Api.GraphQL
                 resolve: context => talksRepo.GetAll()
             );
 
+               Field<ListGraphType<Types.Feedback>>(
+                   "feedbacks",
+                   Description = "will return all the feedbacks",
+                   resolve: context => feedbackService.GetAll()
+             );
 
 
             //Field<ListGraphType<Types.Talk>>(
@@ -70,6 +76,7 @@ namespace GraphQL.Api.GraphQL
                     return talksRepo.GetById(id);
                 }
             );
+
 
         }
     }
