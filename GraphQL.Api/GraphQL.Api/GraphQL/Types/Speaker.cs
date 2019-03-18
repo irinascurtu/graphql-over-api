@@ -3,19 +3,19 @@ using GraphQL.Types;
 
 namespace GraphQL.Api.GraphQL.Types
 {
-    public class Speaker : ObjectGraphType<Data.Entities.Speaker>
+    public class SpeakerInput : InputObjectGraphType
     {
 
-        public Speaker()
+        public SpeakerInput()
         {
-            Field(t => t.Id);
-            Field(t => t.FirstName);
-            Field(t => t.LastName);
-            Field(t => t.Position).Description("The position in the company");
-            Field(t => t.Description).Description("Speaker Bio");
-            Field(t => t.CompanyName);
-            Field(t => t.LinkedIn);
-            Field(t => t.Twitter).Description("Twitter username");
+            //Field(t => t.Id);
+            //Field(t => t.FirstName);
+            //Field(t => t.LastName);
+            //Field(t => t.Position).Description("The position in the company");
+            //Field(t => t.Description).Description("Speaker Bio");
+            //Field(t => t.CompanyName);
+            //Field(t => t.LinkedIn);
+            //Field(t => t.Twitter).Description("Twitter username");
         }
     }
 }

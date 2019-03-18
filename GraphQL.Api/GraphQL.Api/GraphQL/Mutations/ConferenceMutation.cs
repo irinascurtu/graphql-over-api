@@ -1,4 +1,5 @@
-﻿using GraphQL.Api.GraphQL.Types;
+﻿using Conference.Data.Data.Repositories;
+using GraphQL.Api.GraphQL.Types;
 using GraphQL.Types;
 using System;
 using System.Collections.Generic;
@@ -9,21 +10,23 @@ namespace GraphQL.Api.GraphQL.Mutations
 {
     public class ConferenceMutation : ObjectGraphType
     {
-    //    public ConferenceMutation()
-    //    {
-    //        Name = "Mutation";
+        public ConferenceMutation(TalksRepository talkRepository)
+        {
+            FieldAsync<Talk>(
+              "createTalk",
+              arguments: new QueryArguments(
+                  new QueryArgument<NonNullGraphType<TalkInput>>
+                  {
+                      Name = "talk"
+                  }
+              ),
+              resolve: async context =>
+              {
+                  var talk = context.GetArgument<Data.Entities.Talk>("talk");
 
-    //        Field<Talk>(
-    //            "createTalk",
-    //            arguments: new QueryArguments(
-    //                new QueryArgument<NonNullGraphType<Talk>> { Name = "talk" }
-    //            ),
-    //            resolve: context =>
-    //            {
-    //                var human = context.GetArgument<Human>("human");
-    //                return data.AddHuman(human);
-    //            });
-      //  }
+                  return await context.TryAsyncResolve(async c => await talkRepository.Add(talk));
+              });       
+        }
 
     }
 }

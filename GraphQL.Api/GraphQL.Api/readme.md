@@ -39,3 +39,22 @@ query {
 > todo: check what is generated while running ef include or without include
 
 ## Mutations
+```
+
+mutation($talk: talk!) {
+  createTalk(talk: $talk) {
+    title
+    description
+    speakerId
+  }
+}
+
+//query
+{
+  "talk": {
+   "title" :"awesome talk title",
+    "description":"awesome talk description",
+    "speakerId" : 5
+  }
+}
+```

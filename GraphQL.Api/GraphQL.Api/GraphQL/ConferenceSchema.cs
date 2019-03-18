@@ -5,10 +5,10 @@ namespace GraphQL.Api.GraphQL
 {
     public class ConferenceSchema : Schema
     {
-        public ConferenceSchema(IDependencyResolver resolver): base(resolver)
+        public ConferenceSchema(IDependencyResolver resolver) : base(resolver)
         {
             Query = resolver.Resolve<ConferenceQuery>();
-          //  Mutation = resolver.Resolve<ConferenceMutation>();
+            Mutation = resolver.Resolve<ConferenceMutation>();
         }
     }
 }
