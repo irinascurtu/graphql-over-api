@@ -27,7 +27,7 @@ namespace GraphQL.Api.GraphQL
                 resolve: context => talksRepo.GetAll()
             );
 
-               Field<ListGraphType<Types.Feedback>>(
+               Field<ListGraphType<FeedbackType>>(
                    "feedbacks",
                    Description = "will return all the feedbacks",
                    resolve: context => feedbackService.GetAll()

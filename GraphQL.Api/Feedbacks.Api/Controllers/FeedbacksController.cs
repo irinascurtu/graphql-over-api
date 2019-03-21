@@ -27,18 +27,28 @@ namespace Feedbacks.Api.Controllers
             return await repo.GetAll();
         }
 
-        [HttpGet("{id}")]      
-        public async Task<Feedback> GetById(int id)
+
+        [HttpGet]
+        [CommaQueryString]
+        [Route("multiple")]
+        public async Task<IEnumerable<Feedback>> Get([FromQuery]List<int> talks)
         {
-            return await repo.GetById(id);
+            return await repo.GetForIds(talks);
         }
 
 
-        [HttpGet("{talkId}/talks")]         
-        public async Task<IEnumerable<Feedback>> GetForTalk( int talkId)
-        {
-            return await repo.GetForTalk(talkId);
-        }
+        //[HttpGet("{id}")]      
+        //public async Task<Feedback> GetById(int id)
+        //{
+        //    return await repo.GetById(id);
+        //}
+
+
+        //[HttpGet("{talkId}/talks")]         
+        //public async Task<IEnumerable<Feedback>> GetForTalk( int talkId)
+        //{
+        //    return await repo.GetForTalk(talkId);
+        //}
 
 
     }

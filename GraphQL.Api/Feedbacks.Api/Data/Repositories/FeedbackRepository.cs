@@ -22,6 +22,12 @@ namespace Feedbacks.Api.Data.Repositories
             return dbContext.Feedbacks.ToListAsync();
         }
 
+
+        public async Task<IEnumerable<Feedback>> GetForIds(IEnumerable<int> talkIds)
+        {
+            return await dbContext.Feedbacks.Where(pr => talkIds.Contains(pr.TalkId)).ToListAsync();
+        }
+
         public Task<List<Feedback>> GetForTalk(int talkId)
         {
             return dbContext.Feedbacks.Where(x => x.TalkId == talkId).ToListAsync();

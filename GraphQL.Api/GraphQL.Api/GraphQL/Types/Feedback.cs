@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GraphQL.Api.GraphQL.Types
 {
-    public class Feedback : ObjectGraphType<Conference.Service.Feedback>
+    public class FeedbackType : ObjectGraphType<Conference.Service.Feedback>
     {
 
-        public Feedback()
+        public FeedbackType()
         {
             Field(t => t.Id);
             Field(t => t.Content);
