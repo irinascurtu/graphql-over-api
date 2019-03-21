@@ -19,6 +19,10 @@ namespace GraphQL.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+            .ConfigureLogging((context, logging) =>
+            {
+                logging.AddConfiguration(context.Configuration.GetSection("Logging"));
+            })
+            .UseStartup<Startup>();
     }
 }
