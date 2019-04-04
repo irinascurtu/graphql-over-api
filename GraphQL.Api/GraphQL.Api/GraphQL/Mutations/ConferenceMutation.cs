@@ -17,12 +17,12 @@ namespace GraphQL.Api.GraphQL.Mutations
               arguments: new QueryArguments(
                   new QueryArgument<NonNullGraphType<TalkInput>>
                   {
-                      Name = "talk"
+                      Name = "talkInput"
                   }
               ),
               resolve: async context =>
               {
-                  var talk = context.GetArgument<Data.Entities.Talk>("talk");
+                  var talk = context.GetArgument<Data.Entities.Talk>("talkInput");
 
                   return await context.TryAsyncResolve(async c => await talkRepository.Add(talk));
               });       

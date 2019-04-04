@@ -26,6 +26,19 @@ namespace GraphQL.Api.Data.Repositories
         {
             return dbContext.Speakers.FindAsync(id);
         }
-            
+
+
+        /// <summary>
+        /// demo for dataloader
+        /// </summary>
+        /// <param name="talkIds"></param>
+        /// <returns></returns>
+        public async Task<ILookup<int, Speaker>> GetAllSpeakersInOneGo(IEnumerable<int> talkIds)
+        {
+            var speakers = new List<Speaker>();
+            speakers = await dbContext.Talks.Where(pr => talkIds.Contains(pr.Id)).Select(x => x.Speaker).ToListAsync();
+            return speakers.ToLookup(r => r.Id);
+        }
+
     }
 }

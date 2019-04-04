@@ -20,7 +20,7 @@ namespace Conference.Data.Data.Repositories
         {
             return dbContext.Talks.Include(s => s.Speaker).ToListAsync(); ;
         }
-
+      
 
         public Task<List<Talk>> GetAllForSpeaker(int speakerId)
         {

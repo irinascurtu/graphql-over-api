@@ -14,7 +14,7 @@ namespace GraphQL.Api.Data
                 {
                     CompanyName = "Microsoft",
                     CompanyWebsite = "http://microsoft.com",
-                    Email = "irina@endava.com",
+                    Email = "scott@hanselman.com",
                     FirstName = "Scott",
                     LastName = "Hanselman",
                     Position = "Program Manager",
@@ -67,7 +67,7 @@ namespace GraphQL.Api.Data
 
                 dbContext.Talks.Add(new Talk()
                 {
-                    Description = "this could be a super nice talk, but the topic is just boring. Vital but boooooring",
+                    Description = "this could be a super nice talk, and it was. Super nice, Vital topic",
                     Title = "Yet another graphql talk 2",
                     SpeakerId = dbContext.Speakers.First().Id
                 });

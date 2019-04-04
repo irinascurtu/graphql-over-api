@@ -11,6 +11,6 @@ namespace GraphQL.Api.Data.Infrastructure
         }
 
         public DbSet<Speaker> Speakers { get; set; }
-        public virtual DbSet<Talk> Talks { get; set; }
+        public DbSet<Talk> Talks { get; set; }
     }
 }

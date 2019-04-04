@@ -11,7 +11,6 @@ namespace GraphQL.Api.GraphQL
     /// </summary>
     public class ConferenceQuery : ObjectGraphType
     {
-        //inject all the repos you need
         public ConferenceQuery(SpeakersRepository speakersRepo, TalksRepository talksRepo, FeedbackService feedbackService)
         {
             Field<ListGraphType<Types.Speaker>>(
@@ -27,43 +26,47 @@ namespace GraphQL.Api.GraphQL
                 resolve: context => talksRepo.GetAll()
             );
 
-               Field<ListGraphType<FeedbackType>>(
-                   "feedbacks",
-                   Description = "will return all the feedbacks",
-                   resolve: context => feedbackService.GetAll()
-             );
+
+            Field<ListGraphType<FeedbackType>>(
+                "feedbacks",
+                Description = "will return all the feedbacks",
+                resolve: context => feedbackService.GetAll()
+          );
 
 
-            //Field<ListGraphType<Types.Talk>>(
-            //    "speakertalks",
-            //    Description = "will return all the talks for a speaker",
-            //    arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
-            //    {
-            //        Name = "id"
-            //    }),
-            //    resolve: context =>
-            //    {
-            //        var id = context.GetArgument<int>("id");
-            //        return talksRepo.GetAllForSpeaker(id);
-            //    }
-            //);
+            Field<ListGraphType<Types.Talk>>(
+                "speakertalks",
+                Description = "will return all the talks for a speaker",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+                {
+                    Name = "id"
+                }),
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+                    return talksRepo.GetAllForSpeaker(id);
+                }
+            );
 
 
-            //Field<Speaker>(
-            //    "speaker",
-            //    arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
-            //    {
-            //        Name = "id",
-            //        DefaultValue = 2,
-            //        Description = "test"
-            //    }),
-            //    resolve: context =>
-            //    {
-            //        var id = context.GetArgument<int>("id");
-            //        return speakersRepo.GetById(id);
-            //    }
-            //);
+            //gets a speaker by id
 
+            Field<Speaker>(
+                "speaker",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+                {
+                    Name = "id",
+                    DefaultValue = 2,
+                    Description = "test"
+                }),
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+                    return speakersRepo.GetById(id);
+                }
+            );
+
+            //gets a talk by id
             Field<Talk>(
                 "talk",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
