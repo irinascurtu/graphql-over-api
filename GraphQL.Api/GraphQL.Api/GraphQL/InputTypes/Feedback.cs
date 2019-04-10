@@ -11,12 +11,7 @@ namespace GraphQL.Api.GraphQL.Types
 
         public FeedbackInput()
         {
-            //Field(t => t.Id);
-            //Field(t => t.Content);
-            //Field(t => t.Delivery);
-            //Field(t => t.Comments);
-            //Field(t => t.TalkId);
-
+           
         }
     }
 }

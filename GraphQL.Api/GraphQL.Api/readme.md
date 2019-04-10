@@ -105,7 +105,7 @@ Or complete values with speakers
 the  cool thing is that 'speakers' is different depending on the context
 ```
 
-query	{
+`query	{
   talks{
     description
     title
