@@ -36,7 +36,7 @@ namespace GraphQL.Api.GraphQL
            .ResolveAsync(ctx =>
            {
                 // Get or add a loader with the key "GetAllUsers"
-                var loader = accessor.Context.GetOrAddLoader("talks",
+                var loader = accessor.Context.GetOrAddLoader("talksdssd",
                    () => talksRepo.GetAllAsync());
 
                 // Prepare the load operation

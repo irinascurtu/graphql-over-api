@@ -3,8 +3,11 @@ using GraphQL.Http;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,7 +28,7 @@ namespace GraphQL.Api.Infrastructure
 
         public async Task InvokeAsync(HttpContext httpContext, IServiceProvider serviceProvider)
         {
-            var _executor = new DocumentExecuter();
+
             var result = await _executor.ExecuteAsync(doc =>
             {
                 doc.Listeners.Add(serviceProvider.GetRequiredService<DataLoaderDocumentListener>());
@@ -33,6 +36,7 @@ namespace GraphQL.Api.Infrastructure
             }).ConfigureAwait(false);
 
 
+            await _next(httpContext);
         }
     }
 }

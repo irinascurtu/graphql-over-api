@@ -19,6 +19,7 @@ using GraphQL.DataLoader;
 using Conference.Data.Data.Repositories;
 using Conference.Service;
 using GraphQL.Api.Infrastructure;
+using GraphQL.Http;
 
 namespace GraphQL.Api
 {
@@ -47,25 +48,31 @@ namespace GraphQL.Api
                 options.UseSqlServer(Configuration["ConnectionStrings:ConferenceDb"]);
             });
 
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+
+            services.AddSingleton<IDocumentWriter, DocumentWriter>();
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+
+            services.AddSingleton<IDataLoaderContextAccessor, DataLoaderContextAccessor>();
+            services.AddSingleton<DataLoaderDocumentListener>();
+
             services.AddScoped<SpeakersRepository>();
             services.AddScoped<TalksRepository>();
             services.AddScoped<FeedbackService>();
 
 
-            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddScoped<ConferenceSchema>();
-
-            services.AddSingleton<IDataLoaderContextAccessor, DataLoaderContextAccessor>();
-            services.AddSingleton<DataLoaderDocumentListener>();
+           
 
             services.AddHttpClient("Feedbacks", client =>
             {
                 client.BaseAddress = new Uri(Configuration["Feedbacks"]);
             });
+            
 
             services.AddGraphQL(o => { o.ExposeExceptions = env.IsDevelopment(); })
               .AddGraphTypes(ServiceLifetime.Scoped)
-              .AddUserContextBuilder(context => context.User)
+             // .AddUserContextBuilder(context => context.User)
               .AddDataLoader();
 
 
@@ -79,9 +86,11 @@ namespace GraphQL.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMiddleware<GraphQLMiddleware>();
+
             app.UseGraphQL<ConferenceSchema>();
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
-            app.UseMiddleware<GraphQLMiddleware>();          
+            
             dbContex.Seed();
             app.UseMvc();
         }
