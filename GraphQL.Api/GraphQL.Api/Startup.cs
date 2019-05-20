@@ -18,6 +18,7 @@ using GraphQL.Server.Ui.Playground;
 using GraphQL.DataLoader;
 using Conference.Data.Data.Repositories;
 using Conference.Service;
+using GraphQL.Api.Infrastructure;
 
 namespace GraphQL.Api
 {
@@ -66,6 +67,8 @@ namespace GraphQL.Api
               .AddGraphTypes(ServiceLifetime.Scoped)
               .AddUserContextBuilder(context => context.User)
               .AddDataLoader();
+
+
          
         }
 
@@ -78,7 +81,7 @@ namespace GraphQL.Api
             }
             app.UseGraphQL<ConferenceSchema>();
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
-
+            app.UseMiddleware<GraphQLMiddleware>();          
             dbContex.Seed();
             app.UseMvc();
         }

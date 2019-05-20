@@ -16,11 +16,13 @@ namespace GraphQL.Api.GraphQL.Types
             Field(name: "speaker", type: typeof(Speaker), resolve: context => context.Source.Speaker);
 
 
-            ///loads the feedbacks for a talk
+            ///loads the feedbacks for a talk in one go
             Field<ListGraphType<FeedbackType>>(
             "feedbacks",
             resolve: context =>
             {
+                //his is an example of using a DataLoader to batch requests for loading a collection of items by a key.
+                //This is used when a key may be associated with more than one item. LoadAsync() is called by the field resolver for each User.
 
                 var loader =
                     dataLoaderAccessor.Context.GetOrAddCollectionBatchLoader<int, Conference.Service.Feedback>(

@@ -2,7 +2,7 @@
 
 namespace GraphQL.Api.Data.Entities
 {
-    public partial class Talk
+    public class Talk
     {
         public int Id { get; set; }
         public int SpeakerId { get; set; }

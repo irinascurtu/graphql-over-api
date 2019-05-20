@@ -2,7 +2,9 @@
 using Conference.Service;
 using GraphQL.Api.Data.Repositories;
 using GraphQL.Api.GraphQL.Types;
+using GraphQL.DataLoader;
 using GraphQL.Types;
+using System.Collections.Generic;
 
 namespace GraphQL.Api.GraphQL
 {
@@ -11,7 +13,7 @@ namespace GraphQL.Api.GraphQL
     /// </summary>
     public class ConferenceQuery : ObjectGraphType
     {
-        public ConferenceQuery(SpeakersRepository speakersRepo, TalksRepository talksRepo, FeedbackService feedbackService)
+        public ConferenceQuery(SpeakersRepository speakersRepo, TalksRepository talksRepo, FeedbackService feedbackService, IDataLoaderContextAccessor accessor)
         {
             Field<ListGraphType<Types.Speaker>>(
                 "speakers",
@@ -20,19 +22,51 @@ namespace GraphQL.Api.GraphQL
             );
 
 
-            Field<ListGraphType<Talk>>(
-                "talks",
-                Description = "will return all the talks from current and past editions",
-                resolve: context => talksRepo.GetAll()
-            );
+            //Field<ListGraphType<Talk>>(
+            //    "talks",
+            //    Description = "will return all the talks from current and past editions",
+            //    resolve: context => talksRepo.GetAll()
+            //);
 
 
-            Field<ListGraphType<FeedbackType>>(
-                "feedbacks",
-                Description = "will return all the feedbacks",
-                resolve: context => feedbackService.GetAll()
-          );
 
+            Field<ListGraphType<Talk>, IEnumerable<Data.Entities.Talk>>()
+           .Name("talks")
+           .Description("Get all talks")
+           .ResolveAsync(ctx =>
+           {
+                // Get or add a loader with the key "GetAllUsers"
+                var loader = accessor.Context.GetOrAddLoader("talks",
+                   () => talksRepo.GetAllAsync());
+
+                // Prepare the load operation
+                // If the result is cached, a completed Task<IEnumerable<User>> will be returned
+                return loader.LoadAsync();
+           });
+
+
+
+            //  Field<ListGraphType<FeedbackType>>(
+            //      "feedbacks",
+            //      Description = "will return all the feedbacks",
+            //      resolve: context => feedbackService.GetAll()
+            //);
+
+
+            //caches subsequent calls using IDataLoaderContextAccessor - not working
+            // Field<ListGraphType<FeedbackType>, IEnumerable<Feedback>>()
+            //.Name("feedbacks")
+            //.Description("Get all feedbacks")
+            //.ResolveAsync(ctx =>
+            //{
+            //     // Get or add a loader with the key "GetAllUsers"
+            //     var loader = accessor.Context.GetOrAddLoader("GetAllFeedbacks",
+            //        () => feedbackService.GetAll());
+
+            //     // Prepare the load operation
+            //     // If the result is cached, a completed Task<IEnumerable<User>> will be returned
+            //     return loader.LoadAsync();
+            //});
 
             Field<ListGraphType<Types.Talk>>(
                 "speakertalks",

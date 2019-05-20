@@ -20,8 +20,13 @@ namespace Conference.Data.Data.Repositories
         {
             return dbContext.Talks.Include(s => s.Speaker).ToListAsync(); ;
         }
-      
 
+
+
+        public async Task<IEnumerable<Talk>> GetAllAsync()
+        {
+            return await dbContext.Talks.ToListAsync(); ;
+        }
         public Task<List<Talk>> GetAllForSpeaker(int speakerId)
         {
             return dbContext.Talks.Where(x => x.SpeakerId == speakerId).ToListAsync();

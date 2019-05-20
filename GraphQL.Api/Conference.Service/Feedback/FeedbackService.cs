@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Conference.Service
@@ -19,7 +20,7 @@ namespace Conference.Service
         /// Calls external service to load the feedbacks
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Feedback>> GetAll()
+        public async Task<IEnumerable<Feedback>> GetAll()
         {
             var client = httpClientFactory.CreateClient("Feedbacks");
 
