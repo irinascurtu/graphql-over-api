@@ -32,16 +32,16 @@ namespace GraphQL.Api.GraphQL
 
             Field<ListGraphType<Talk>, IEnumerable<Data.Entities.Talk>>()
            .Name("talks")
-           .Description("Get all talks")
+           .Description("Get all talks in the system")
            .ResolveAsync(ctx =>
            {
-                // Get or add a loader with the key "GetAllUsers"
-                var loader = accessor.Context.GetOrAddLoader("talksdssd",
-                   () => talksRepo.GetAllAsync());
+               // Get or add a loader with the key "GetAllUsers"
+               var loader = accessor.Context.GetOrAddLoader("talksdssd",
+                  () => talksRepo.GetAllAsync());
 
-                // Prepare the load operation
-                // If the result is cached, a completed Task<IEnumerable<User>> will be returned
-                return loader.LoadAsync();
+               // Prepare the load operation
+               // If the result is cached, a completed Task<IEnumerable<User>> will be returned
+               return loader.LoadAsync();
            });
 
 
@@ -53,23 +53,24 @@ namespace GraphQL.Api.GraphQL
             //);
 
 
-            //caches subsequent calls using IDataLoaderContextAccessor - not working
-            // Field<ListGraphType<FeedbackType>, IEnumerable<Feedback>>()
-            //.Name("feedbacks")
-            //.Description("Get all feedbacks")
-            //.ResolveAsync(ctx =>
-            //{
-            //     // Get or add a loader with the key "GetAllUsers"
-            //     var loader = accessor.Context.GetOrAddLoader("GetAllFeedbacks",
-            //        () => feedbackService.GetAll());
+            //caches subsequent calls using IDataLoaderContextAccessor
+            Field<ListGraphType<FeedbackType>, IEnumerable<Feedback>>()
+           .Name("feedbacks")
+           .Description("Get all feedbacks")
+           .ResolveAsync(ctx =>
+           {
+                // Get or add a loader with the key "GetAllUsers"
+                var loader = accessor.Context.GetOrAddLoader("GetAllFeedbacks",
+                   () => feedbackService.GetAll());
 
-            //     // Prepare the load operation
-            //     // If the result is cached, a completed Task<IEnumerable<User>> will be returned
-            //     return loader.LoadAsync();
-            //});
+                // Prepare the load operation
+                // If the result is cached, a completed Task<IEnumerable<User>> will be returned
+                return loader.LoadAsync();
+           });
+
 
             Field<ListGraphType<Types.Talk>>(
-                "speakertalks",
+                "talksForASpeaker",
                 Description = "will return all the talks for a speaker",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
                 {
@@ -86,7 +87,7 @@ namespace GraphQL.Api.GraphQL
             //gets a speaker by id
 
             Field<Speaker>(
-                "speaker",
+                "speakerById",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
                 {
                     Name = "id",

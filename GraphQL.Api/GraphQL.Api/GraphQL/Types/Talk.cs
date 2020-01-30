@@ -13,7 +13,7 @@ namespace GraphQL.Api.GraphQL.Types
             Field(t => t.Title);
             Field(t => t.Description);
             Field(t => t.SpeakerId);
-            Field(name: "speaker", type: typeof(Speaker), resolve: context => context.Source.Speaker);
+            //Field(name: "speaker", type: typeof(Speaker), resolve: context => context.Source.Speaker);
 
 
             ///loads the feedbacks for a talk in one go
@@ -36,7 +36,6 @@ namespace GraphQL.Api.GraphQL.Types
              "speakers",
              resolve: context =>
             {
-
                 var loader =
                     dataLoaderAccessor.Context.GetOrAddCollectionBatchLoader<int, Data.Entities.Speaker>("GetSpeakersForTalk", speakersRepository.GetAllSpeakersInOneGo);
 

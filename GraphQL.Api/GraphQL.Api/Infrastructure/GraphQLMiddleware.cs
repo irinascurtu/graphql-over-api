@@ -29,11 +29,11 @@ namespace GraphQL.Api.Infrastructure
         public async Task InvokeAsync(HttpContext httpContext, IServiceProvider serviceProvider)
         {
 
-            var result = await _executor.ExecuteAsync(doc =>
-            {
-                doc.Listeners.Add(serviceProvider.GetRequiredService<DataLoaderDocumentListener>());
+            //var result = await _executor.ExecuteAsync(doc =>
+            //{
+            //    doc.Listeners.Add(serviceProvider.GetRequiredService<DataLoaderDocumentListener>());
 
-            }).ConfigureAwait(false);
+            //}).ConfigureAwait(false);
 
 
             await _next(httpContext);

@@ -7,7 +7,7 @@ namespace GraphQL.Api.Data.Infrastructure
     {
         public ConferenceDbContext(DbContextOptions<ConferenceDbContext> options) : base(options)
         {
-
+            InitialSeed.Seed(this);
         }
 
         public DbSet<Speaker> Speakers { get; set; }

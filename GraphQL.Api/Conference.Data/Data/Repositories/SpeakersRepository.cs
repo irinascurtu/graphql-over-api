@@ -19,7 +19,7 @@ namespace GraphQL.Api.Data.Repositories
 
         public Task<List<Speaker>> GetAll()
         {
-            return dbContext.Speakers.ToListAsync();
+            return dbContext.Speakers.Include(t=>t.Talks).ToListAsync();
         }
 
         public Task<Speaker> GetById(int id)
@@ -36,9 +36,16 @@ namespace GraphQL.Api.Data.Repositories
         public async Task<ILookup<int, Speaker>> GetAllSpeakersInOneGo(IEnumerable<int> talkIds)
         {
             var speakers = new List<Speaker>();
-            speakers = await dbContext.Talks.Where(pr => talkIds.Contains(pr.Id)).Select(x => x.Speaker).ToListAsync();
+            speakers = await dbContext.Talks.Where(pr => talkIds.Contains(pr.Id)).Select(x => x.Speaker).Distinct().ToListAsync();
             return speakers.ToLookup(r => r.Id);
         }
 
+
+        public async Task<Speaker> Add(Speaker speaker)
+        {
+            await dbContext.Speakers.AddAsync(speaker);
+            await dbContext.SaveChangesAsync();
+            return speaker;
+        }
     }
 }

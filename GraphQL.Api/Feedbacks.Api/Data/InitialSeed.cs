@@ -10,6 +10,7 @@ namespace Feedbacks.Api.Data
        
         public static void EnsureSeedData(this FeedbacksDbContext dbContext)
         {
+            dbContext.Database.EnsureCreated();
             if (!dbContext.Feedbacks.Any())
             {
                 dbContext.Feedbacks.Add(new Entities.Feedback()

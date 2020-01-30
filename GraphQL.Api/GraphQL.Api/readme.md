@@ -60,7 +60,6 @@ speaker will be either, included with .Include() or loaded with a DataLoader
 	}
 ```
 
-> todo: check what is generated while running ef include or without include
 
 ## Mutations
 
@@ -85,6 +84,34 @@ And define the variable
     }
 
  ```
+ 
+ //demo adding a new mutation
+ //variable to be added
+     mutation($speaker: speakerInput!) {
+      createSpeaker(speakerInput: $speaker) {
+        linkedIn
+        firstName
+        lastName
+      }
+    }
+
+{
+     "speaker": {
+     "firstName" :"Bond",
+      "lastName":"James",
+      "position":"Spy",
+      "companyName": "Secret",
+      "description": "secret description",
+      "gitHub":"https://github.com",
+      "email":"bond@secret.com",
+      "linkedIn":"https://LinkedIn.com/james-bond"      
+      }
+    }
+
+
+
+
+
 ## Data Loader in action demo
 
 ```
@@ -129,4 +156,6 @@ query	{
     }  
 }
 ```
+
+
 

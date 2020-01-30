@@ -8,6 +8,7 @@ namespace GraphQL.Api.Data
     {
         public static void Seed(this ConferenceDbContext dbContext)
         {
+            dbContext.Database.EnsureCreated();
             if (!dbContext.Speakers.Any())
             {
                 dbContext.Speakers.Add(new Speaker()

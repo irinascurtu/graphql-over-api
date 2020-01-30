@@ -25,8 +25,9 @@ namespace Conference.Data.Data.Repositories
 
         public async Task<IEnumerable<Talk>> GetAllAsync()
         {
-            return await dbContext.Talks.ToListAsync(); ;
+            return await dbContext.Talks.ToListAsync();
         }
+
         public Task<List<Talk>> GetAllForSpeaker(int speakerId)
         {
             return dbContext.Talks.Where(x => x.SpeakerId == speakerId).ToListAsync();

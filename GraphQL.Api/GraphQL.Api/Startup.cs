@@ -20,6 +20,7 @@ using Conference.Data.Data.Repositories;
 using Conference.Service;
 using GraphQL.Api.Infrastructure;
 using GraphQL.Http;
+using GraphQL.Server.Ui.GraphiQL;
 
 namespace GraphQL.Api
 {
@@ -38,8 +39,6 @@ namespace GraphQL.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ///Hello
-            ///heeloooe
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ConferenceDbContext>(options =>
@@ -50,48 +49,48 @@ namespace GraphQL.Api
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
 
-            services.AddSingleton<IDocumentWriter, DocumentWriter>();
-            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            //services.AddSingleton<IDocumentWriter, DocumentWriter>();
+            //services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
 
-            services.AddSingleton<IDataLoaderContextAccessor, DataLoaderContextAccessor>();
-            services.AddSingleton<DataLoaderDocumentListener>();
+            //services.AddSingleton<IDataLoaderContextAccessor, DataLoaderContextAccessor>();
+            //services.AddSingleton<DataLoaderDocumentListener>();
 
             services.AddScoped<SpeakersRepository>();
             services.AddScoped<TalksRepository>();
             services.AddScoped<FeedbackService>();
-
-
             services.AddScoped<ConferenceSchema>();
-           
+
 
             services.AddHttpClient("Feedbacks", client =>
             {
                 client.BaseAddress = new Uri(Configuration["Feedbacks"]);
             });
-            
 
-            services.AddGraphQL(o => { o.ExposeExceptions = env.IsDevelopment(); })
+
+            services.AddGraphQL(o =>
+            {
+                o.EnableMetrics = true;
+                o.ExposeExceptions = env.IsDevelopment();
+            })
               .AddGraphTypes(ServiceLifetime.Scoped)
-             // .AddUserContextBuilder(context => context.User)
+              // .AddUserContextBuilder(context => context.User)
               .AddDataLoader();
 
 
-         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ConferenceDbContext dbContex)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ConferenceDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMiddleware<GraphQLMiddleware>();
 
             app.UseGraphQL<ConferenceSchema>();
-            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
-            
-            dbContex.Seed();
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());//ui/playground
+            app.UseGraphiQLServer(new GraphiQLOptions());// graphiql
+
             app.UseMvc();
         }
     }

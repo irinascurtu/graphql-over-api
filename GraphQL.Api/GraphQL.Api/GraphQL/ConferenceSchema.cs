@@ -9,7 +9,6 @@ namespace GraphQL.Api.GraphQL
         {
             Query = resolver.Resolve<ConferenceQuery>();
             Mutation = resolver.Resolve<ConferenceMutation>();
-            
         }
     }
 }
