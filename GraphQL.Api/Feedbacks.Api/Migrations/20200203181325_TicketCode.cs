@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Feedbacks.Api.Data.Migrations
+namespace Feedbacks.Api.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class TicketCode : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
